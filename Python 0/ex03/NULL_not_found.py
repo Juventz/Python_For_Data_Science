@@ -5,7 +5,8 @@ def NULL_not_found(obj: any) -> int:
     if obj_type is type(None):
         print(f"Nothing: {obj} {obj_type}")
 
-    # nan is a floating-point number that represents an undefined or unrepresentable value
+    # nan is a floating-point number that represents
+    # an undefined or unrepresentable value
     # nan is not equal to any value, including itself
     elif obj_type is float and obj != obj:
         print(f"Cheese: nan {obj_type}")
@@ -25,5 +26,5 @@ def NULL_not_found(obj: any) -> int:
     else:
         print("Type not Found")
         return 1
-    
-    return 0
+
+    return (0)

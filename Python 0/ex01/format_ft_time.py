@@ -12,7 +12,10 @@ current_date = datetime.now()
 # elapsed_seconds: .2e : 2 decimal places in scientific notation
 scientifici_notation = f"{elapsed_seconds:.2e}"
 
- # elapsed_second: .4f : 4 decimal places
- # %b %d %Y : month day year in abbreviated form 
-print(f"Seconds since January 1, 1970: {elapsed_seconds:.4f} or {scientifici_notation} in scientific notation")
+# elapsed_second: .4f : 4 decimal places
+# %b %d %Y : month day year in abbreviated form
+print(
+    f"Seconds since January 1, 1970: {elapsed_seconds:.4f} "
+    f"or {scientifici_notation} in scientific notation"
+)
 print(current_date.strftime("%b %d %Y"))

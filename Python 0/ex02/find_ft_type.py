@@ -14,6 +14,6 @@ def all_thing_is_obj(obj: any) -> int:
     elif obj_type == str:
         print(f"{obj} is in the kitchen : {obj_type}")
     else:
-        print(f"Type not found")
+        print("Type not found")
 
     return (42)
