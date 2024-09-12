@@ -4,6 +4,19 @@ import string
 
 def count_charact(text: str) -> None:
 
+    """
+    Count the number of characters in the text:
+    - number of characters
+    - number of digits
+    - number of whitespace characters
+    - number of punctuation characters
+    - number of lowercase characters
+    - number of uppercase characters
+
+    Args: text (str): The text to count
+    Returns: None
+    """
+
     # Count the number of characters in the text
     num_chars = len(text)
 
@@ -32,6 +45,8 @@ def count_charact(text: str) -> None:
 
 
 def main() -> None:
+
+    # print(count_charact.__doc__)
 
     if len(sys.argv) > 2:
         print("AssertionError: more than one argument is provided")
