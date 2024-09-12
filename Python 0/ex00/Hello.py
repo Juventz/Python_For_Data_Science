@@ -28,7 +28,9 @@ ft_dict = {"Hello": "titi!"}
 # MODIFIY DATA
 
 # Modiify list (we can modify elements)
-ft_list[1] = "World!"
+# ft_list[1] = "World!"
+ft_list.pop()
+ft_list.append("World!")
 
 # Modify tuple (we can only create a new one because tuple are immuable)
 ft_tuple = ("Hello", "France!")
