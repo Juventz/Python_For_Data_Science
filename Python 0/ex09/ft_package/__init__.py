@@ -5,4 +5,4 @@
 # The __init__.py file can be empty or
 # contain the initialization code for the package.
 
-# We can define the import to a
+from .functions import count_in_list
