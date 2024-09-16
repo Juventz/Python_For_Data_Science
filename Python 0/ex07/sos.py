@@ -1,8 +1,7 @@
 from sys import argv
-import colorama
-from colorama import Fore
+from colorama import Fore, init
 
-colorama.init(autoreset=True)
+init(autoreset=True)
 
 NESTED_MORSE = {
     " ": "/",

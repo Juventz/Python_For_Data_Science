@@ -1,9 +1,8 @@
 from sys import argv
 import string
-import colorama
-from colorama import Fore
+from colorama import Fore, init
 
-colorama.init(autoreset=True)
+init(autoreset=True)
 
 
 def count_charact(text: str) -> None:
@@ -68,7 +67,7 @@ def main() -> None:
         print(Fore.CYAN + main.__doc__)
 
         if len(argv) > 2:
-            raise AssertionError(Fore.RED + "too many arguments provided")
+            raise AssertionError(Fore.RED + "Usage: python building.py [text]")
 
         if len(argv) == 2 and argv[1] != "None":
             text = argv[1]

@@ -37,7 +37,7 @@ def main():
     # Tests avec des arguments invalides
     run_test([], "AssertionError: no argument is provided")
     run_test(['Hi!'], "AssertionError: argument is not an integer")
-    run_test(['13', '5'], "AssertionError: more than one argument is provided")
+    run_test(['13', '5'], "AssertionError: Usage: python whatis.py <number>")
 
 
 if __name__ == "__main__":
