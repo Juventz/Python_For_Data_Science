@@ -1,0 +1,14 @@
+[build-system]
+requires = ["setuptools","wheel"]
+build-backend = "setuptools.build_meta"
+
+# this part can replace the setup.py
+# [project]
+# name = "ft_package"
+# version = "0.0.1"
+# license = {name = "MIT}
+# description = "A package for counting occurences"
+# authors = [ 
+#     {name = "jaristil", email = "jaristil@student.42.fr"}
+# ]
+# dependencies = []
