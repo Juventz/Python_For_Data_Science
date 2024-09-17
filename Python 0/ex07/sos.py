@@ -68,6 +68,9 @@ def main():
             raise AssertionError(Fore.RED + "Usage: python sos.py <text>")
 
         text = argv[1]
+        if not text:
+            raise AssertionError(Fore.RED + "The text cannot be empty")
+
         print(encode_morse(text))
 
     except AssertionError as e:
@@ -77,6 +80,9 @@ def main():
     except Exception as e:
         print(Fore.RED + type(e).__name__ + ": Unexpected error occures")
         return
+
+    finally:
+        print(Fore.YELLOW + "\nExecution completed.")
 
 
 if __name__ == "__main__":

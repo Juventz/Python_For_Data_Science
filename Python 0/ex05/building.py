@@ -20,6 +20,10 @@ def count_charact(text: str) -> None:
     Args: text (str): The text to count
     Returns: None
     """
+
+    if not isinstance(text, str):
+        raise TypeError("The input must be a string")
+
     num_chars = len(text)
 
     num_upper = sum(1 for c in text if c.isupper())
@@ -42,29 +46,8 @@ def count_charact(text: str) -> None:
 
 
 def main() -> None:
-
-    """
-    Main:
-    Main function to handle user input and call count_charact.
-
-    The function checks the number of arguments provided.
-    If none or more than one argument is given,
-    it raises an AssertionError.
-    If exactly one argument is provided, it passes
-    it to the count_charact function.
-    Otherwise, it prompts the user to input a text.
-
-    It handles the following exceptions:
-    - KeyboardInterrupt (when the user presses Ctrl+C)
-    - EOFError (when the user presses Ctrl+D or Ctrl+Z)
-
-    Args: None
-    Returns: None
-    """
-
     try:
         print(Fore.CYAN + count_charact.__doc__)
-        print(Fore.CYAN + main.__doc__)
 
         if len(argv) > 2:
             raise AssertionError(Fore.RED + "Usage: python building.py [text]")
@@ -86,6 +69,18 @@ def main() -> None:
 
     except EOFError:
         print(Fore.RED + "EOFError: Program interrupted by user using ctr + D")
+        return
+    
+    except TypeError as e:
+        print(Fore.RED + type(e).__name__ + ":", e)
+        return
+
+    except ValueError:
+        print(Fore.RED + "ValueError: The input must be a string")
+        return
+    
+    except Exception:
+        print(Fore.RED + "An unexpected error occured")
         return
 
 

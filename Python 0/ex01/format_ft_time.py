@@ -1,10 +1,10 @@
-import time
+from time import time
 from datetime import datetime
 
 # Calculates the elapsed time in seconds since the epoch.
 # epoch is defined in Unix as January 1, 1970
 # elaspse_seconds = current_time - epoch_time and is a float
-elapsed_seconds = time.time()
+elapsed_seconds = time()
 
 # current_date in the format like: 2021-09-01 12:00:00.000000
 current_date = datetime.now()

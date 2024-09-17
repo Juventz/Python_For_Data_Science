@@ -16,15 +16,18 @@ def main():
 <string> <number>")
 
         S = argv[1]
+        if not S:
+            raise AssertionError(Fore.RED + "The string cannot be empty")
 
         try:
             N = int(argv[2])
+            if N < 0:
+                raise ValueError()
         except ValueError:
-            raise AssertionError(Fore.RED + "Arg[2] must be an integer")
+            raise AssertionError(Fore.RED + "Arg[2] must be a positive integer")
 
         W = S.split()
 
-        # remove all punction and special characters from W
         for word in W:
             if not word.isalnum():
                 raise AssertionError(Fore.RED + "Characters not supported")
@@ -36,6 +39,10 @@ def main():
 
     except AssertionError as e:
         print(Fore.RED + type(e).__name__ + ":", e)
+        return
+    
+    except Exception:
+        print(Fore.RED + "An unexpected error occurred")
         return
 
 

@@ -20,9 +20,15 @@ def ft_tqdm(lst: range) -> None:
     if not isinstance(lst, range):
         raise TypeError("ft_tqdm() argument must be a range object")
 
-    total = len(lst)
+    try:
+        total = len(lst)
+
+    except TypeError:
+        raise TypeError("range object must have a defined length")
+
     if total <= 0:
         raise ValueError("range object must have at least one element")
+
     bar_length = 40
 
     for i, elem in enumerate(lst):

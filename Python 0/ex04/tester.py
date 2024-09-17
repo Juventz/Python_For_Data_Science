@@ -1,7 +1,7 @@
 # subprocess is a module that allows you to spawn new processes
 # connect to their input/output/error pipes, and obtain their return codes
 # it is used to run the script and capture the output
-import subprocess
+from subprocess import run
 
 
 def run_test(args, expected_output):
@@ -14,7 +14,7 @@ def run_test(args, expected_output):
         # command est une list qui contient le nom du prg et ses args
         # capture_output=True permet de capturer la sortie standard et d'erreur
         # text=True permet de retourner la sortie en tant que str
-        result = subprocess.run(command, capture_output=True, text=True)
+        result = run(command, capture_output=True, text=True)
 
         output = result.stdout.strip()
         # Vérifier la sortie
