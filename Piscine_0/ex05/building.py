@@ -1,5 +1,5 @@
 from sys import argv
-import string
+from string import punctuation
 from colorama import Fore, init
 
 init(autoreset=True)
@@ -30,7 +30,7 @@ def count_charact(text: str) -> None:
 
     num_lower = sum(1 for c in text if c.islower())
 
-    num_punct = sum(1 for c in text if c in string.punctuation)
+    num_punct = sum(1 for c in text if c in punctuation)
 
     num_whitespace = sum(1 for c in text if c.isspace())
 
@@ -56,6 +56,7 @@ def main() -> None:
             text = argv[1]
         else:
             text = input("What is the text to count?\n")
+            text += ' '
 
         count_charact(text)
 
