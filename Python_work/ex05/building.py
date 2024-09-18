@@ -70,7 +70,7 @@ def main() -> None:
     except EOFError:
         print(Fore.RED + "EOFError: Program interrupted by user using ctr + D")
         return
-    
+
     except TypeError as e:
         print(Fore.RED + type(e).__name__ + ":", e)
         return
@@ -78,7 +78,7 @@ def main() -> None:
     except ValueError:
         print(Fore.RED + "ValueError: The input must be a string")
         return
-    
+
     except Exception:
         print(Fore.RED + "An unexpected error occured")
         return

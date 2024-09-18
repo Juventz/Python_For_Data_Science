@@ -24,7 +24,7 @@ def main():
             if N < 0:
                 raise ValueError()
         except ValueError:
-            raise AssertionError(Fore.RED + "Arg[2] must be a positive integer")
+            raise AssertionError(Fore.RED + "Arg[2] must be a positive int")
 
         W = S.split()
 
@@ -40,7 +40,7 @@ def main():
     except AssertionError as e:
         print(Fore.RED + type(e).__name__ + ":", e)
         return
-    
+
     except Exception:
         print(Fore.RED + "An unexpected error occurred")
         return
