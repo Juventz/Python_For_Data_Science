@@ -1,4 +1,5 @@
-def give_bmi(height: list[int | float], weight: list[int | float]) -> list[float]:
+def give_bmi(
+        height: list[int | float], weight: list[int | float]) -> list[float]:
     """
     Calculates the BMI of a person based on their height and weight.
     Args:
@@ -36,6 +37,3 @@ def apply_limit(bmi: list[int | float], limit: int) -> list[bool]:
         raise TypeError("Limit should be an integer or float")
 
     return [b > limit for b in bmi]
-
-
-
