@@ -13,21 +13,21 @@ def main():
         [1.88, 75.2]
     ]
 
-    print(Fore.BLUE + "Valid cases:")
+    print(Fore.LIGHTBLUE_EX + "Valid cases:")
     try:
-        print("\nCase 1: Slicing from index 0 to 2")
-        print(slice_me(family, 0, 2))  # Expected: [[1.80, 78.4], [2.15, 102.7]]
-        
+        print("Case 1: Slicing from index 0 to 2")
+        print(slice_me(family, 0, 2))  # Expected: [[1.80, 78.4],[2.15, 102.7]]
+
         print("\nCase 2: Slicing from index 1 to -2")
         print(slice_me(family, 1, -2))  # Expected: [[2.15, 102.7]]
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
 
-    print(Fore.BLUE + "\nInvalid cases:")
-    
+    print(Fore.LIGHTBLUE_EX + "\nInvalid cases:")
+
     # Case 1: Not a list
     try:
-        print("\nCase 1: Passing a non-list input")
+        print("Case 1: Passing a non-list input")
         print(slice_me("not a list", 0, 2))  # Expected: TypeError
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
@@ -47,7 +47,7 @@ def main():
     # Case 3: Negative start index
     try:
         print("\nCase 3: Passing a negative start index")
-        print(slice_me(family, -3, 2))  # Expected: [[2.10, 98.5], [1.88, 75.2]]
+        print(slice_me(family, -3, 2))  # Expected: [[2.10, 98.5],[1.88, 75.2]]
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
 

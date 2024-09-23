@@ -1,4 +1,5 @@
 from colorama import Fore, init
+import numpy as np
 
 init(autoreset=True)
 
@@ -17,23 +18,30 @@ def slice_me(family: list, start: int, end: int) -> list:
     if not isinstance(family, list):
         raise TypeError(Fore.RED + "The family parameter must be a list")
 
-    are_all_rows_lists = all(isinstance(row, list) for row in family)
-    row_lenghts = [len(row) for row in family]
-    are_same_lenght = len(set(row_lenghts)) == 1
+    if not all(isinstance(row, list) for row in family):
+        raise ValueError(Fore.RED + "The family parameter must be a 2D array")
 
-    if not are_all_rows_lists or not are_same_lenght:
+    row_lenght = [len(row) for row in family]
+    if len(set(row_lenght)) != 1:
         raise ValueError(Fore.RED + "Elements must be lists of the same size")
 
-    shape = len(family), len(family[0])
+    # Convert the list to a numpy array
+    family_np = np.array(family)
+    if family_np.ndim != 2:
+        raise ValueError(Fore.RED + "The family parameter must be a 2D array")
+
+    # Check if all the inner lists have the same length
+    if len(set(len(row) for row in family)) != 1:
+        raise ValueError(Fore.RED + "Elements must be lists of the same size")
+
+    shape = family_np.shape
     print(f"My shape is : {shape}")
 
-    sliced_array = family[start:end]
-
-    new_shape = (
-        len(sliced_array), len(sliced_array[0])) if sliced_array else (0, 0)
+    sliced_array = family_np[start:end]
+    new_shape = sliced_array.shape
     print(f"My new shape is : {new_shape}")
 
-    return sliced_array
+    return sliced_array.tolist()
 
 
 def main():
