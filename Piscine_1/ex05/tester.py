@@ -22,9 +22,9 @@ def test_main():
         blue_image = ft_blue(image)
         grey_image = ft_grey(image)
 
-        filtered_images = [inverted_image, red_image,
+        filtered_images = [image, inverted_image, red_image,
                            green_image, blue_image, grey_image]
-        titles = ["Inverted Image", "Red Image",
+        titles = ["Original Image", "Inverted Image", "Red Image",
                   "Green Image", "Blue Image", "Grey Image"]
 
         for i, img in enumerate(filtered_images):
