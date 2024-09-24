@@ -1,5 +1,4 @@
 from load_image import ft_load
-# from zoom import ft_zoom
 from colorama import Fore, init
 from matplotlib import pyplot as plt
 import numpy as np
@@ -57,13 +56,27 @@ def main():
         try:
             plt.show()
 
-        except Exception:
+        except Exception as e:
+            print(Fore.RED + f"{type(e).__name__}: {e}")
             return
+
+    except KeyboardInterrupt:
+        print(Fore.RED + "KeyboardInterrupt: Program has been terminated")
+        return
 
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
         return
 
+    finally:
+        plt.close()
+        print(Fore.YELLOW + "The rotated image has been displayed")
+
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except KeyboardInterrupt:
+        print(Fore.RED + "KeyboardInterrupt: Program has been terminated")
+    except Exception as e:
+        print(Fore.RED + f"{type(e).__name__}: {e}")

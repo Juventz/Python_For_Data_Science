@@ -36,8 +36,13 @@ def test_main():
         try:
             plt.show()
 
-        except Exception:
+        except Exception as e:
+            print(Fore.RED + f"{type(e).__name__}: {e}")
             return
+
+    except KeyboardInterrupt:
+        print(Fore.RED + "KeyboardInterrupt: Program has been terminated")
+        return
 
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
@@ -49,4 +54,7 @@ def test_main():
 
 
 if __name__ == "__main__":
-    test_main()
+    try:
+        test_main()
+    except Exception as e:
+        print(Fore.RED + f"{type(e).__name__}: {e}")
