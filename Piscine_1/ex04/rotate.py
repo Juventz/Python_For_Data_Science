@@ -15,13 +15,15 @@ def ft_rotate(image):
         np.array: The rotated image
     """
     rows, cols = image.shape[:2]
-    transposed = np.zeros((cols, rows, *image.shape[2:]), dtype=image.dtype)
+    transposed = np.zeros((cols, rows), dtype=np.uint8)
 
     for i in range(rows):
         for j in range(cols):
             transposed[j, i] = image[i, j]
+    
+    grayscale = np.mean(transposed, axis=2, keepdims=True).astype(np.uint8)
 
-    return transposed
+    return grayscale
 
 
 def main():
@@ -33,7 +35,6 @@ def main():
     if image is None:
         return
 
-    print(f"The shape of the image is: {image.shape}")
     print(image)
 
     start_x, end_x = 400, 800
@@ -47,7 +48,7 @@ def main():
         print(f"New shape after Transpose: {rotated_image.shape}")
         print(rotated_image)
 
-        plt.imshow(rotated_image)
+        plt.imshow(rotated_image, cmap="gray")
         plt.title("Rotated Raccoon")
         plt.xlabel("X-axis")
         plt.ylabel("Y-axis")

@@ -21,6 +21,10 @@ def slice_me(family: list, start: int, end: int) -> list:
     if not all(isinstance(row, list) for row in family):
         raise ValueError(Fore.RED + "The family parameter must be a 2D array")
 
+    for row in family:
+        if not all(isinstance(element, (int, float)) for element in row):
+            raise TypeError(Fore.RED + "All elements must be int or float")
+
     row_lenght = [len(row) for row in family]
     if len(set(row_lenght)) != 1:
         raise ValueError(Fore.RED + "Elements must be lists of the same size")
@@ -50,7 +54,7 @@ def main():
         [1.80, 78.4],
         [2.15, 102.7],
         [2.10, 98.5],
-        [1.88, 75.2]
+        [1.88, "a"]
     ]
 
     try:

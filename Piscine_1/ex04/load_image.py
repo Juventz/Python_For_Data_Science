@@ -20,8 +20,6 @@ def ft_load(path: str) -> np.array:
         img = img.convert("RGB")
         img_array = np.array(img)
 
-        print(f"Image shape: {img_array.shape}")
-
         return img_array
 
     except FileNotFoundError:

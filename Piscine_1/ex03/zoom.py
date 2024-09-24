@@ -1,6 +1,7 @@
 from load_image import ft_load
 from colorama import Fore, init
 from matplotlib import pyplot as plt
+import numpy as np
 
 init(autoreset=True)
 
@@ -17,7 +18,11 @@ def ft_zoom(image, start_x, end_x, start_y, end_y):
     Returns:
         np.array: The zoomed image
     """
-    return image[start_y:end_y, start_x:end_x]
+    zoomed_image = image[start_y:end_y, start_x:end_x]
+
+    grayscale = np.mean(zoomed_image, axis=2, keepdims=True).astype(np.uint8)
+
+    return grayscale
 
 
 def main():
@@ -40,7 +45,7 @@ def main():
         print(f"New shape after slicing: {zoomed_image.shape}")
         print(zoomed_image)
 
-        plt.imshow(zoomed_image)
+        plt.imshow(zoomed_image, cmap="gray")
         plt.title("Zoomed Raccoon")
         plt.xlabel("X-axis")
         plt.ylabel("Y-axis")
