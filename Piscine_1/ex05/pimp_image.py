@@ -22,9 +22,7 @@ def ft_red(array) -> np.array:
     Returns:
         np.array: The red image
     """
-    red_image = np.copy(array)
-    red_image[:, :, 1] = 0
-    red_image[:, :, 2] = 0
+    red_image = array * [1, 0, 0]
 
     return red_image
 
@@ -38,6 +36,8 @@ def ft_blue(array) -> np.array:
         np.array: The blue image
     """
     blue_image = np.copy(array)
+
+    # Set the red and green channels to 0
     blue_image[:, :, 0] = 0
     blue_image[:, :, 1] = 0
 
@@ -52,9 +52,7 @@ def ft_green(array) -> np.array:
     Returns:
         np.array: The green image
     """
-    green_image = np.copy(array)
-    green_image[:, :, 0] = 0
-    green_image[:, :, 2] = 0
+    green_image = array - ft_red(array) - ft_blue(array)
 
     return green_image
 
@@ -67,9 +65,14 @@ def ft_grey(array) -> np.array:
     Returns:
         np.array: The grey image
     """
-    grey_image = np.mean(array, axis=2, dtype=np.int32)
-    grey_image = grey_image.astype(np.uint8)
+    grey_image = np.copy(array)
 
-    grey_image = np.stack([grey_image] * 3, axis=-1)
+    # Calculate the mean of the RGB channels
+    grey_value = np.mean(array, axis=2)
+
+    # Set the RGB channels to the mean value
+    grey_image[:, :, 0] = grey_value
+    grey_image[:, :, 1] = grey_value
+    grey_image[:, :, 2] = grey_value
 
     return grey_image
