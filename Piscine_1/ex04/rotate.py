@@ -14,8 +14,11 @@ def ft_rotate(image):
     Returns:
         np.array: The rotated image
     """
+    # if image.ndim == 3 and image.shape[2] == 1:
+    #     image = np.squeeze(image, axis=2)
+
     rows, cols = image.shape[:2]
-    transposed = np.zeros((cols, rows, *image.shape[2:]), dtype=image.dtype)
+    transposed = np.zeros((cols, rows), dtype=image.dtype)
 
     for i in range(rows):
         for j in range(cols):
@@ -33,15 +36,15 @@ def main():
     if image is None:
         return
 
-    grayscale_img = np.mean(image, axis=2, keepdims=True).astype(np.uint8)
-    print(f"The shape of image is: {grayscale_img.shape}")
-    print(grayscale_img)
-
     start_x, end_x = 400, 800
     start_y, end_y = 200, 600
 
     try:
+        grayscale_img = np.mean(image, axis=2).astype(np.uint8)
         squared_image = grayscale_img[start_y:end_y, start_x:end_x]
+        print(f"The shape of image is: {squared_image.shape}")
+        print(squared_image)
+
         rotated_image = ft_rotate(squared_image)
 
         print(f"New shape after Transpose: {rotated_image.shape}")
