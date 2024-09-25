@@ -15,8 +15,8 @@ def visualize(file_path, campus):
     try:
         data = load(file_path)
 
-        if data is None:
-            raise ValueError(Fore.RED + 'Data is empty')
+        # if data is None:
+        #     raise ValueError(Fore.RED + 'Data is empty')
 
         campus_data = data[data['country'] == campus]
 
@@ -33,9 +33,16 @@ def visualize(file_path, campus):
         plt.title(f" {campus} life expectancy Projections")
         plt.xlabel('Year')
         plt.ylabel('Life expectancy')
+        plt.legend()
         plt.gcf.canvas.manager.set_window_title(f" {campus} Life expectancy Projections")
+
+        plt.grid()
         plt.show()
 
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
         return None
+
+
+if __name__ == '__main__':
+    visualize('data/life_expectancy.csv', 'France')
