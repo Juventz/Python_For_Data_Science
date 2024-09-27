@@ -1,5 +1,4 @@
 from load_csv import load
-import pandas as pd
 from matplotlib import pyplot as plt
 from colorama import Fore, init
 
@@ -15,9 +14,6 @@ def visualize(file_path, campus):
     try:
         data = load(file_path)
 
-        # if data is None:
-        #     raise ValueError(Fore.RED + 'Data is empty')
-
         campus_data = data[data['country'] == campus]
 
         if campus_data.empty:
@@ -25,18 +21,20 @@ def visualize(file_path, campus):
 
         campus_data = campus_data.set_index('country').T
 
+        campus_data.index = campus_data.index.astype(int)
+
         print(Fore.YELLOW + 'Visualizing data')
 
         plt.figure(figsize=(12, 6))
-        data.plot(campus_data.index, campus_data[campus], marker='o',
-                  label=campus)
-        plt.title(f" {campus} life expectancy Projections")
+        plt.plot(campus_data.index, campus_data[campus], label=campus)
+        plt.title(f" {campus} Life Expectancy Projections")
         plt.xlabel('Year')
         plt.ylabel('Life expectancy')
-        plt.legend()
-        plt.gcf.canvas.manager.set_window_title(f" {campus} Life expectancy Projections")
+        plt.xticks(ticks=range(1800, 2110, 40))
+        plt.gcf().canvas.manager.set_window_title(f" {campus} Life expectancy \
+Projections")
 
-        plt.grid()
+        plt.grid(True)
         plt.show()
 
     except Exception as e:
@@ -44,5 +42,25 @@ def visualize(file_path, campus):
         return None
 
 
+def main():
+    print(Fore.CYAN + visualize.__doc__)
+    try:
+        file_path = 'life_expectancy_years.csv'
+        campus = 'France'
+
+        visualize(file_path, campus)
+
+    except KeyboardInterrupt:
+        print(Fore.RED + 'Keyboard interrupt detected')
+        return None
+
+    except Exception as e:
+        print(Fore.RED + f"{type(e).__name__}: {e}")
+        return None
+
+    finally:
+        print(Fore.YELLOW + 'Exiting...')
+
+
 if __name__ == '__main__':
-    visualize('data/life_expectancy.csv', 'France')
+    main()

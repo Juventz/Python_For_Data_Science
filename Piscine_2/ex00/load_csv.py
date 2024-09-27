@@ -1,6 +1,7 @@
 from colorama import Fore, init
 from os import access, R_OK
 import pandas as pd
+from re import match
 
 init(autoreset=True)
 
@@ -15,6 +16,31 @@ def load(path: str) -> pd.DataFrame:
     """
     try:
         data = pd.read_csv(path)
+
+        data.fillna(0, inplace=True)
+
+        if 'country' not in data.columns:
+            print(Fore.RED + 'The column "country" is missing')
+            return None
+
+        invalid_country = data['country'].str.contains(r'\d', regex=True)
+        if invalid_country.any():
+            print(Fore.RED + f"The column country contains invalid values'\
+                  {data['country'][invalid_country]}")
+            return None
+
+        year_columns = [col for col in data.columns if col != 'country']
+        invalid_year = [year for year in year_columns
+                        if not match(r'^\d+$', year)]
+        if invalid_year:
+            print(Fore.RED + f"The column(s) {invalid_year}\
+                  contain(s) invalid values")
+            return None
+
+        for year in year_columns:
+            if not pd.api.types.is_numeric_dtype(data[year]):
+                print(Fore.RED + f"The column {year} is not numeric")
+                return None
 
         print(Fore.YELLOW + f"Loading dataset of dimensions {data.shape}")
 
