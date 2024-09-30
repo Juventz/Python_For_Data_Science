@@ -1,6 +1,7 @@
 from colorama import Fore, init
 from os import access, R_OK
 import pandas as pd
+from re import search, match
 
 init(autoreset=True)
 
@@ -13,16 +14,44 @@ def convert_pop(value: str):
     Returns:
         float: The converted value.
     """
+    if isinstance(value, (int, float)):
+        return value
+
     try:
+        if search(r'\.\..*', value):
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('.') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('k') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('B') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('M') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if search(r'[a-zA-Z].*\d', value):
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        
+        if value.startswith('.') or value.endswith('.'):
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+
         if 'k' in value:
-            return float(value.replace('k', '').replace(',', '').strip()) \
+            if match(r'^\d+(\.\d+)?k$', value):
+                return float(value.replace('k', '').replace(',', '').strip()) \
                     * 1000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
         elif 'B' in value:
-            return float(value.replace('B', '').replace(',', '').strip()) \
+            if match(r'^\d+(\.\d+)?B$', value):
+                return float(value.replace('B', '').replace(',', '').strip()) \
                     * 1000000000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
         elif 'M' in value:
-            return float(value.replace('M', '').replace(',', '').strip()) \
+            if match(r'^\d+(\.\d+)?M$', value):
+                return float(value.replace('M', '').replace(',', '').strip()) \
                     * 1000000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
         else:
             return float(value.replace(',', '').strip())
 
@@ -40,7 +69,6 @@ def load(path: str) -> pd.DataFrame:
     """
     try:
         data = pd.read_csv(path)
-
         data.fillna(0, inplace=True)
 
         if 'country' not in data.columns:

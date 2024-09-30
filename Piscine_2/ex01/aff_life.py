@@ -5,7 +5,7 @@ from colorama import Fore, init
 init(autoreset=True)
 
 
-def visualize(file_path, campus):
+def visualize_life(file_path, campus):
     """
     Visualize the data.
     Args:
@@ -34,7 +34,6 @@ def visualize(file_path, campus):
         plt.gcf().canvas.manager.set_window_title(f" {campus} Life expectancy \
 Projections")
 
-        plt.grid(True)
         plt.show()
 
     except Exception as e:
@@ -43,12 +42,12 @@ Projections")
 
 
 def main():
-    print(Fore.CYAN + visualize.__doc__)
+    print(Fore.CYAN + visualize_life.__doc__)
     try:
         file_path = 'life_expectancy_years.csv'
         campus = 'France'
 
-        visualize(file_path, campus)
+        visualize_life(file_path, campus)
 
     except KeyboardInterrupt:
         print(Fore.RED + 'Keyboard interrupt detected')
