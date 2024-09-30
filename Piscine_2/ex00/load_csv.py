@@ -60,3 +60,12 @@ def load(path: str) -> pd.DataFrame:
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
         return None
+
+
+def main():
+    print(Fore.CYAN + load.__doc__)
+    print(load("life_expectancy_years.csv"))
+
+
+if __name__ == '__main__':
+    main()
