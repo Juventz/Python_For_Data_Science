@@ -6,7 +6,7 @@ from re import search, match
 init(autoreset=True)
 
 
-def convert_pop(value: str):
+def convert_(value: str):
     """
     Convert a string to a float.
     Args:
@@ -14,9 +14,9 @@ def convert_pop(value: str):
     Returns:
         float: The converted value.
     """
+
     if isinstance(value, (int, float)):
         return value
-
     try:
         if search(r'\.\..*', value):
             raise ValueError(Fore.RED + f"Invalid value: {value}")
@@ -29,9 +29,6 @@ def convert_pop(value: str):
         if value.count('M') > 1:
             raise ValueError(Fore.RED + f"Invalid value: {value}")
         if search(r'[a-zA-Z].*\d', value):
-            raise ValueError(Fore.RED + f"Invalid value: {value}")
-        
-        if value.startswith('.') or value.endswith('.'):
             raise ValueError(Fore.RED + f"Invalid value: {value}")
 
         if 'k' in value:
@@ -83,9 +80,17 @@ def load(path: str) -> pd.DataFrame:
             return None
 
         year_columns = [col for col in data.columns if col != 'country']
+
+        invalid_year = [year for year in year_columns
+                        if not match(r'^\d+$', year)]
+        if invalid_year:
+            print(Fore.RED + f"The column(s) {invalid_year}\
+                  contain(s) invalid values")
+            return None
+
         for year in year_columns:
             try:
-                data[year] = data[year].apply(convert_pop)
+                data[year] = data[year].apply(convert_)
             except Exception as e:
                 print(Fore.RED + f"{type(e).__name__}: {e}")
                 return None
