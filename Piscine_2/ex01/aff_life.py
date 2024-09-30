@@ -45,7 +45,7 @@ def main():
     print(Fore.CYAN + visualize_life.__doc__)
     try:
         file_path = 'life_expectancy_years.csv'
-        campus = 'Afghanistan'
+        campus = 'France'
 
         visualize_life(file_path, campus)
 
