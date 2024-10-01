@@ -1,9 +1,59 @@
 from colorama import Fore, init
 from os import access, R_OK
 import pandas as pd
-from re import match
+from re import search, match
 
 init(autoreset=True)
+
+
+def convert_(value: str):
+    """
+    Convert a string to a float.
+    Args:
+        value (str): The string to convert.
+    Returns:
+        float: The converted value.
+    """
+
+    if isinstance(value, (int, float)):
+        return value
+    try:
+        if search(r'\.\..*', value):
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('.') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('k') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('B') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if value.count('M') > 1:
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+        if search(r'[a-zA-Z].*\d', value):
+            raise ValueError(Fore.RED + f"Invalid value: {value}")
+
+        if 'k' in value:
+            if match(r'^\d+(\.\d+)?k$', value):
+                return float(value.replace('k', '').replace(',', '').strip()) \
+                    * 1000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
+        elif 'B' in value:
+            if match(r'^\d+(\.\d+)?B$', value):
+                return float(value.replace('B', '').replace(',', '').strip()) \
+                    * 1000000000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
+        elif 'M' in value:
+            if match(r'^\d+(\.\d+)?M$', value):
+                return float(value.replace('M', '').replace(',', '').strip()) \
+                    * 1000000
+            else:
+                raise ValueError(Fore.RED + f"Invalid value: {value}")
+        else:
+            return float(value.replace(',', '').strip())
+
+    except ValueError:
+        raise ValueError(Fore.RED + f"Could not convert {value} to a float")
 
 
 def load(path: str) -> pd.DataFrame:
@@ -16,13 +66,13 @@ def load(path: str) -> pd.DataFrame:
     """
     try:
         data = pd.read_csv(path)
-
         data.fillna(0, inplace=True)
 
         if 'country' not in data.columns:
             print(Fore.RED + 'The column "country" is missing')
             return None
 
+        # Check if the column country contains invalid values
         invalid_country = data['country'].str.contains(r'\d', regex=True)
         if invalid_country.any():
             print(Fore.RED + f"The column country contains invalid values'\
@@ -30,6 +80,7 @@ def load(path: str) -> pd.DataFrame:
             return None
 
         year_columns = [col for col in data.columns if col != 'country']
+
         invalid_year = [year for year in year_columns
                         if not match(r'^\d+$', year)]
         if invalid_year:
@@ -38,8 +89,10 @@ def load(path: str) -> pd.DataFrame:
             return None
 
         for year in year_columns:
-            if not pd.api.types.is_numeric_dtype(data[year]):
-                print(Fore.RED + f"The column {year} is not numeric")
+            try:
+                data[year] = data[year].apply(convert_)
+            except Exception as e:
+                print(Fore.RED + f"{type(e).__name__}: {e}")
                 return None
 
         print(Fore.YELLOW + f"Loading dataset of dimensions {data.shape}")
@@ -53,19 +106,10 @@ def load(path: str) -> pd.DataFrame:
             print(Fore.RED + 'An error occurred while reading the file')
         return None
 
-    except FileNotFoundError:
-        print(Fore.RED + 'File not found')
+    except FileNotFoundError as e:
+        print(Fore.RED + f"{type(e).__name__}: {e}")
         return None
 
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
         return None
-
-
-def main():
-    print(Fore.CYAN + load.__doc__)
-    print(load("life_expectancy_years.csv"))
-
-
-if __name__ == '__main__':
-    main()
