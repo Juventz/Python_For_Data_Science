@@ -31,14 +31,18 @@ class Stark(Character):
 
 
 def main():
+    try:
+        print(Fore.CYAN + Character.__doc__)
+        print(Fore.CYAN + Stark.__doc__)
+        arya = Stark("Arya")
+        print(f"{Fore.GREEN}{arya.first_name} is alive: {arya.is_alive}")
+        arya.die()
+        print(f"{Fore.RED}{arya.first_name} is alive: {arya.is_alive}")
+        return
 
-    print(Fore.CYAN + Character.__doc__)
-    print(Fore.CYAN + Stark.__doc__)
-    arya = Stark("Arya")
-    print(f"{Fore.GREEN}{arya.first_name} is alive: {arya.is_alive}")
-    arya.die()
-    print(f"{Fore.RED}{arya.first_name} is alive: {arya.is_alive}")
-    return
+    except Exception as e:
+        print(f"{type(e).__name__}: {e}")
+        return
 
 
 if __name__ == "__main__":

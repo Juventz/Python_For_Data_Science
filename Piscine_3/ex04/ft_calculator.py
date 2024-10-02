@@ -32,7 +32,7 @@ def main():
         print(f"Vector 2: {V2}")
 
         calculator.dotproduct(V1, V2)
-        calculator.add_vectors(V1, V2)
+        calculator.add_vec(V1, V2)
         calculator.sous_vec(V1, V2)
 
     except Exception as e:

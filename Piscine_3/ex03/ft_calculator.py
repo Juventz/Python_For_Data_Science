@@ -44,7 +44,7 @@ def main():
         print(Fore.GREEN + f"Adding 2.0: {calc + 2.0}")
         print(Fore.GREEN + f"Subtracting 1.0: {calc - 1.0}")
         print(Fore.GREEN + f"Multiplying by 3.0: {calc * 3.0}")
-        print(Fore.GREEN + f"Dividing by 2.0: {calc / 2.0}")
+        print(Fore.GREEN + f"Dividing by 2.0: {calc / 0}")
 
     except Exception as e:
         print(Fore.RED + f"{type(e).__name__}: {e}")
