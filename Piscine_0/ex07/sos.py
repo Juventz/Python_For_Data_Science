@@ -63,7 +63,7 @@ def encode_morse(text: str) -> str:
 
 def main():
     try:
-        print(Fore.CYAN + encode_morse.__doc__)
+        # print(Fore.CYAN + encode_morse.__doc__)
         if len(argv) != 2:
             raise AssertionError(Fore.RED + "Usage: python sos.py <text>")
 
@@ -73,12 +73,12 @@ def main():
 
         print(encode_morse(text))
 
-    except AssertionError as e:
-        print(Fore.RED + type(e).__name__ + ":", e)
-        return
+    # except AssertionError as e:
+    #     print(Fore.RED + type(e).__name__ + ":", e)
+    #     return
 
     except Exception as e:
-        print(Fore.RED + type(e).__name__ + ": Unexpected error occures")
+        print(Fore.RED + type(e).__name__ + ":", e)
         return
 
     finally:
