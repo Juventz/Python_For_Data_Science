@@ -37,7 +37,7 @@ def main():
         print(Fore.GREEN + f"Power of {x} is {outer(x)()}")
 
     except Exception as e:
-        print(Fore.RED + f"{type(e).__name__}")
+        print(f"{type(e).__name__}: {e}")
         return
 
 
