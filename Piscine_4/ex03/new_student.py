@@ -17,15 +17,21 @@ class Student:
     login: str = field(init=False)
     id: str = field(init=False, default_factory=generate_id)
 
+    def __post__init__(self):
+        """Post-initialization method."""
+        self.login = f"{self.name[0]}{self.surname}".capitalize()
+
     def __init__(self, name: str, surname: str, active: bool = True, **kwargs):
+        """Initialize the student object."""
         try:
             if 'id' in kwargs:
-                raise TypeError("Student.__init__() got an unexpected\
+                raise TypeError("Student.__init__() got an unexpected \
 keyword argument 'id'")
 
             self.name = name
             self.surname = surname
             self.active = active
+            self.id = generate_id()
             self.login = f"{self.name[0]}{self.surname}".capitalize()
 
         except Exception as e:

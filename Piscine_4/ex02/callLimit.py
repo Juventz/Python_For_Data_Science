@@ -7,9 +7,13 @@ def callLimit(limit: int):
     # It returns a function that will be called instead of the original
     # Wrapping the original function
     def callLimiter(function):
+        """Internal decorator function that limits the number
+        of times a function can be called."""
         count = 0
 
         def limit_function(*args, **kwargs):
+            """The actual function that will be called
+            instead of the original and enforce the call limit."""
             nonlocal count
             if count < limit:
                 count += 1
