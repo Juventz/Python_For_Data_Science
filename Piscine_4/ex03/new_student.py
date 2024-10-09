@@ -24,7 +24,7 @@ class Student:
     def __init__(self, name: str, surname: str, active: bool = True, **kwargs):
         """Initialize the student object."""
         try:
-            if 'id' in kwargs:
+            if 'id' or 'login' in kwargs:
                 raise TypeError("Student.__init__() got an unexpected \
 keyword argument 'id'")
 
